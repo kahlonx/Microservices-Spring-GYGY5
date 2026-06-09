@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    function:
+      definition: consumeTestEvent
+    stream:
+      bindings:
+        consumeTestEvent-in-0:
+          destination: test-topic # hangi başlıktan bu eventi dinleyeyim?
+          group: user-service-group # hangi grup olarak dinliyorum?
+      kafka:
+        binder:
+          brokers: localhost:9092
+  datasource:
+    url: jdbc:postgresql://localhost:5434/users
+    username: postgres
+    password: test12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
