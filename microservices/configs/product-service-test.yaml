@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://test.turkcell.com:5433/products
+    username: postgres
+    password: turkcelltest
+    driver-class-name: org.postgresql.Driver
