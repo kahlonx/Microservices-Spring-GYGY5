@@ -81,9 +81,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
-                        <!-- Run the app's JVM with a user-owned temp dir (each module's target/),
-                             avoiding Spring Boot 4's ownership check failing on a shared/admin-owned
-                             Windows %TEMP% subdirectory. -->
                         <jvmArguments>-Djava.io.tmpdir=${project.build.directory}</jvmArguments>
                     </configuration>
                 </plugin>
