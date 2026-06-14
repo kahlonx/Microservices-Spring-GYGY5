@@ -1,8 +1,15 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8085/realms/microservices-gygy5
   application:
     name: product-service
+  profiles:
+    active: dev
   config:
-    import: optional:configserver:http://localhost:8888
-
+    import: "optional:configserver:http://localhost:8888"
+    
 server:
   port: 8082
