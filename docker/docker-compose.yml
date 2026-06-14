@@ -51,41 +51,10 @@ services:
         condition: service_healthy
     networks:
       - kafka-net
- 
-  # Debezium CDC: Kafka Connect with the Debezium PostgreSQL connector.
-  # Streams INSERTs on the product-db 'outbox' table to Kafka (replaces the poller).
-  connect:
-    image: quay.io/debezium/connect:3.1   # recent Debezium 3.x; verify it talks to Kafka 4.2.0
-    container_name: connect
-    depends_on:
-      kafka:
-        condition: service_healthy
-      product-db:
-        condition: service_started
-    ports:
-      - "8083:8083"                        # Kafka Connect REST API
-    environment:
-      BOOTSTRAP_SERVERS: kafka:19092       # container-internal Kafka listener
-      GROUP_ID: connect-cluster
-      CONFIG_STORAGE_TOPIC: connect_configs
-      OFFSET_STORAGE_TOPIC: connect_offsets
-      STATUS_STORAGE_TOPIC: connect_statuses
-      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-    networks:
-      - kafka-net
 
   product-db:
     image: postgres:17
     container_name: product-db
-    command:                               # logical replication for Debezium CDC
-      - "postgres"
-      - "-c"
-      - "wal_level=logical"
-      - "-c"
-      - "max_wal_senders=10"
-      - "-c"
-      - "max_replication_slots=10"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test12345
