@@ -1,0 +1,4 @@
+com\turkcell\bff_server\BffServerApplication.class
+com\turkcell\bff_server\config\SecurityConfig$CsrfCookieFilter.class
+com\turkcell\bff_server\config\SecurityConfig$SpaCsrfTokenRequestHandler.class
+com\turkcell\bff_server\config\SecurityConfig.class

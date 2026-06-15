@@ -1,0 +1,28 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8085/realms/microservices-gygy5
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: bff-client
+            client-secret: ${KEYCLOAK_BFF_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            scope: openid,profile,email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            # Forward everything to the real gateway, relaying the access token
+            # held server-side in the user's session as a Bearer header.
+            - id: gateway-relay
+              uri: lb://gateway-server
+              predicates:
+                - Path=/**
+              filters:
+                - TokenRelay=

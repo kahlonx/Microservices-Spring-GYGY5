@@ -23,6 +23,7 @@
         <module>product-service</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
+        <module>bff-server</module>
     </modules>
 
     <properties>
